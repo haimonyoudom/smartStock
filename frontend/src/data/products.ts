@@ -1,4 +1,4 @@
-import type { Product } from './types'
+import type { Product } from '../types'
 
 export const products: Product[] = [
   { id: 'p1', name: 'Coca-Cola 330ml', sku: 'CC-330', sellingPrice: 0.8, stockQuantity: 48, lowStockThreshold: 10, active: true },

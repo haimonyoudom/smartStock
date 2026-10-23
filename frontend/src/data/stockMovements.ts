@@ -1,4 +1,4 @@
-import type { StockMovement } from './types'
+import type { StockMovement } from '../types'
 
 export const stockMovements: StockMovement[] = [
   { id: 'm1', productId: 'p2', userId: 'u2', movementType: 'SALE', quantityChange: -3, reason: 'Sale #1042', createdAt: '2026-10-23T10:15:00' },
