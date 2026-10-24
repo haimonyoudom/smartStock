@@ -33,51 +33,7 @@ function onHistory(product: Product) { message.value = `History of ${product.nam
   </section>
 </template>
 
-
 <style scoped>
-section {
-  width: 100%;
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-
-h1 {
-  margin: 0;
-  font-size: 1.75rem;
-}
-
-button {
-  padding: 0.85rem 1.25rem;
-  border: 2px solid #383b64;
-  background: #d5dafb;
-  color: #222;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #c3caf5;
-}
-
-.note {
-  margin-top: 1rem;
-  color: #555;
-}
-
-@media (max-width: 600px) {
-  .top {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  button {
-    width: 100%;
-  }
-}
+.top { display: flex; justify-content: space-between; align-items: center; }
+.note { margin-top: 1rem; color: #555; }
 </style>

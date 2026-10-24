@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ProductsPage from '@/views/ProductsPage.vue'
 import NewSalePage from '@/views/NewSalePage.vue'
+import AlertsPage from '@/views/AlertsPage.vue'
 import PlaceholderPage from '@/views/PlaceholderPage.vue'
 
 export default createRouter({
@@ -9,7 +10,7 @@ export default createRouter({
     { path: '/', redirect: '/products' },
     { path: '/products', component: ProductsPage },
     { path: '/new-sale', component: NewSalePage },
-    { path: '/alerts', component: PlaceholderPage, meta: { title: 'Low-stock alerts' } },
+    { path: '/alerts', component: AlertsPage },
     { path: '/sales', component: PlaceholderPage, meta: { title: 'Sales' } },
   ],
 })
