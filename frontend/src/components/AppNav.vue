@@ -89,8 +89,7 @@ const emit = defineEmits<{
   justify-content: center;
   min-height: 56px;
   padding: 12px 20px;
-  border: 2px solid #666666;
-  background: #ffffff;
+  background: none;
   color: #292929;
   text-decoration: none;
   font-size: 1.1rem;
@@ -98,12 +97,11 @@ const emit = defineEmits<{
 }
 
 .nav-link:hover {
-  background: #f2f2f2;
+  color: greenyellow;
 }
 
 .nav-link.router-link-active {
-  background: #d5dafb;
-  border-color: #383b64;
+  color: green;
 }
 
 .user {
@@ -122,7 +120,7 @@ const emit = defineEmits<{
   padding: 8px 12px;
   border: none;
   background: transparent;
-  color: #666666;
+  color: red;
   font-size: 1rem;
 }
 

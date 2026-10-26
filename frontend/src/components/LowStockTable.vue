@@ -15,7 +15,7 @@ const emit = defineEmits<{ adjust: [product: Product] }>()
         <td>{{ product.name }}</td>
         <td>{{ product.stockQuantity }}</td>
         <td>{{ product.lowStockThreshold }}</td>
-        <td><button type="button" @click="emit('adjust', product)">Adjust stock</button></td>
+        <td><button type="button" class="btn btn-secondary" @click="emit('adjust', product)">Update stock</button></td>
       </tr>
       <tr v-if="products.length === 0">
         <td colspan="4" class="empty">No products are low on stock.</td>

@@ -22,8 +22,8 @@ const reason = ref('')
       <input v-model="reason" type="text" placeholder="e.g. Restock delivery" />
     </label>
     <div class="buttons">
-      <button type="button" @click="emit('save', { change, reason })">Save</button>
-      <button type="button" @click="emit('cancel')">Cancel</button>
+      <button type="button" class="btn btn-success" @click="emit('save', { change, reason })">Save</button>
+      <button type="button" class="btn btn-danger" @click="emit('cancel')">Cancel</button>
     </div>
   </div>
 </template>

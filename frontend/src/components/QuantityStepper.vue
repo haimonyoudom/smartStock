@@ -8,9 +8,9 @@ const emit = defineEmits<{ 'update:modelValue': [value: number] }>()
 
 <template>
   <div class="stepper">
-    <button type="button" :disabled="modelValue <= min" @click="emit('update:modelValue', modelValue - 1)">-</button>
+    <button type="button" class="btn btn-outline-secondary" :disabled="modelValue <= min" @click="emit('update:modelValue', modelValue - 1)">-</button>
     <span>{{ modelValue }}</span>
-    <button type="button" :disabled="modelValue >= max" @click="emit('update:modelValue', modelValue + 1)">+</button>
+    <button type="button" class="btn btn-outline-secondary" :disabled="modelValue >= max" @click="emit('update:modelValue', modelValue + 1)">+</button>
   </div>
 </template>
 

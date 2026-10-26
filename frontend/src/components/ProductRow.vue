@@ -20,10 +20,10 @@ const emit = defineEmits<{ edit: []; adjust: []; history: [] }>()
     <td>
       <div class="actions">
         <template v-if="canManage">
-          <button type="button" @click="emit('edit')">Edit</button>
-          <button type="button" @click="emit('adjust')">Adjust</button>
+          <button type="button" class="btn btn-secondary" @click="emit('edit')">Edit</button>
+          <button type="button" class="btn btn-danger" @click="emit('adjust')">Adjust</button>
         </template>
-        <button type="button" @click="emit('history')">History</button>
+        <button type="button" class="btn btn-secondary" @click="emit('history')">History</button>
       </div>
     </td>
   </tr>

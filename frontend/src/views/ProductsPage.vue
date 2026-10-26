@@ -20,7 +20,7 @@ function onHistory(product: Product) { message.value = `History of ${product.nam
   <section>
     <div class="top">
       <h1>Products</h1>
-      <button v-if="canManage" type="button" @click="message = 'Add product: form comes next'">+ Add product</button>
+      <button v-if="canManage" class="btn btn-primary" type="button" @click="message = 'Add product: form comes next'">+ Add product</button>
     </div>
     <ProductTable
       :products="productsStore.products"

@@ -6,7 +6,7 @@ const emit = defineEmits<{ complete: [] }>()
 <template>
   <div class="summary">
     <strong>Total ${{ total.toFixed(2) }}</strong>
-    <button type="button" :disabled="!canComplete" @click="emit('complete')">Complete sale</button>
+    <button type="button" class="btn btn-primary" :disabled="!canComplete" @click="emit('complete')">Complete sale</button>
   </div>
 </template>
 

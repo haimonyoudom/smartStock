@@ -22,7 +22,7 @@ function onAdd() {
         {{ p.name }} - ${{ p.sellingPrice.toFixed(2) }} ({{ p.stockQuantity }} left)
       </option>
     </select>
-    <button type="button" :disabled="!selectedId" @click="onAdd">Add</button>
+    <button type="button" class="btn btn-primary" :disabled="!selectedId" @click="onAdd">Add</button>
   </div>
 </template>
 
