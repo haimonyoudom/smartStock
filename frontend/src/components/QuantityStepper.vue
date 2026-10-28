@@ -15,6 +15,7 @@ const emit = defineEmits<{ 'update:modelValue': [value: number] }>()
 </template>
 
 <style scoped>
-.stepper { display: inline-flex; align-items: center; gap: 0.5rem; }
-.stepper span { min-width: 2rem; text-align: center; }
+.stepper { display: inline-flex; align-items: center; gap: 0.35rem; }
+.stepper button { display: grid; width: 30px; height: 30px; place-items: center; padding: 0; border: 1px solid #dfe6f1; border-radius: 7px; background: #f5f7fb; color: #24324b; }
+.stepper span { min-width: 1.5rem; text-align: center; font-weight: 600; }
 </style>

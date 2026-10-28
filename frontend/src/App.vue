@@ -13,7 +13,10 @@ const auth = useAuthStore()
       :role="auth.currentUser.role"
       @logout="() => {}"
     />
-
+    <header class="topbar">
+      <div class="global-search">⌕ &nbsp; Search products, SKU, or sales...</div>
+      <div class="account"><span class="avatar">{{ auth.currentUser.name.charAt(0) }}</span><span><strong>{{ auth.currentUser.name }}</strong><small>Account</small></span></div>
+    </header>
     <main class="main-content">
       <RouterView />
     </main>
@@ -41,17 +44,21 @@ body {
 
 .app-layout {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   min-height: 100vh;
 }
 
+.topbar { position: fixed; top: 0; right: 0; left: 220px; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 18px 30px; background: #f6f8fc; }
+.global-search { width: min(500px, 60%); padding: 11px 20px; border: 1px solid #e5ebf5; border-radius: 10px; background: white; color: #73839f; }
+.account { display: flex; align-items: center; gap: 9px; font-size: 12px; }
+.account strong, .account small { display: block; }
+.account small { color: #73839f; font-size: 11px; }
+.avatar { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 50%; background: #e2ebff; color: #3867ed; font-weight: 700; }
 .main-content {
   width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 32px clamp(20px, 3vw, 48px);
+  margin-left: 220px;
+  padding: 100px 30px 40px;
+  background: #f6f8fc;
 }
 
 button,
@@ -61,8 +68,8 @@ select {
 }
 
 @media (max-width: 600px) {
-  .main-content {
-    padding: 24px 16px;
-  }
+  .topbar { position: static; }
+  .global-search { display: none; }
+  .main-content { margin-left: 0; padding: 24px 16px; }
 }
 </style>

@@ -9,7 +9,7 @@ const emit = defineEmits<{ edit: [product: Product]; adjust: [product: Product];
 <template>
   <table>
     <thead>
-      <tr><th>Name</th><th>SKU</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+      <tr><th>Product</th><th>SKU</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr>
     </thead>
     <tbody>
       <ProductRow
@@ -27,6 +27,8 @@ const emit = defineEmits<{ edit: [product: Product]; adjust: [product: Product];
 
 <style scoped>
 table { width: 100%; border-collapse: collapse; }
-th, td { text-align: left; padding: 0.6rem; border-bottom: 1px solid #ddd; }
-th { background: #ddd; }
+th, td { padding: 15px 10px; border-bottom: 1px solid #edf1f7; text-align: left; white-space: nowrap; }
+th { background: #f6f8fc; color: #73839f; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+td { color: #172b4d; font-size: 13px; }
+th:first-child, td:first-child { padding-left: 16px; }
 </style>

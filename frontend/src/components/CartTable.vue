@@ -22,7 +22,7 @@ const emit = defineEmits<{
           <th>Price</th>
           <th>Qty</th>
           <th>Subtotal</th>
-          <th>Remove</th>
+          <th aria-label="Remove"></th>
         </tr>
       </thead>
 
@@ -49,34 +49,24 @@ const emit = defineEmits<{
 
 <style scoped>
 /* table  cart */
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  border: 2px solid #666666;
-}
+.table-container { width: 100%; overflow-x: auto; border: 1px solid #dbe5f5; border-radius: 10px; background: white; }
 
 table {
   width: 100%;
-  min-width: 650px;
+  min-width: 560px;
   border-collapse: collapse;
   background: #ffffff;
   color: #292929;
 }
 
-th,
-td {
-  padding: 14px 16px;
+th, td {
+  padding: 14px 12px;
   text-align: left;
   vertical-align: middle;
   border-bottom: 1px solid #cccccc;
 }
 
-th {
-  background: #dddddd;
-  color: #292929;
-  font-weight: 500;
-  font-size: 1rem;
-}
+th { background: #f6f8fc; color: #73839f; font-weight: 600; font-size: 11px; text-transform: uppercase; }
 
 tbody tr:last-child td {
   border-bottom: none;
@@ -96,29 +86,22 @@ tbody tr:hover:not(:has(.empty)) {
   color: #666666;
 }
 
-.table-container {
-  width: 100%;
-  min-width: 0;
-  overflow-x: auto;
-  border: 1px solid #dbe5f5;
-  border-radius: 10px;
-  background: white;
-}
+td { color: #172b4d; font-size: 13px; }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto;
-}
-
-th,
-td {
-  padding: 16px;
-  text-align: left;
-}
-
-th {
-  background: #eaf1ff;
-  color: #243b63;
+@media (max-width: 560px) {
+  .table-container { overflow: visible; border: 0; }
+  table, thead, tbody, tr, td { display: block; min-width: 0; }
+  table { width: 100%; }
+  thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  tbody tr:not(:has(.empty)) { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; padding: 14px 0; border-bottom: 1px solid #edf1f7; }
+  tbody tr:not(:has(.empty)) td { padding: 0; border: 0; }
+  tbody tr:not(:has(.empty)) td::before { display: block; margin-bottom: 2px; color: #73839f; font-size: 10px; text-transform: uppercase; }
+  tbody tr:not(:has(.empty)) td:nth-child(1) { grid-column: 1 / -1; font-weight: 700; }
+  tbody tr:not(:has(.empty)) td:nth-child(1)::before { content: 'Product'; }
+  tbody tr:not(:has(.empty)) td:nth-child(2)::before { content: 'Price'; }
+  tbody tr:not(:has(.empty)) td:nth-child(3)::before { content: 'Quantity'; }
+  tbody tr:not(:has(.empty)) td:nth-child(4)::before { content: 'Subtotal'; }
+  tbody tr:not(:has(.empty)) td:nth-child(5) { position: absolute; right: 0; margin-top: -28px; }
+  .empty { padding: 24px 0; }
 }
 </style>

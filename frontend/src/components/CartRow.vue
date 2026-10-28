@@ -18,6 +18,11 @@ const emit = defineEmits<{ 'update-quantity': [quantity: number]; remove: [] }>(
       />
     </td>
     <td>${{ (line.unitPrice * line.quantity).toFixed(2) }}</td>
-    <td><button type="button" @click="emit('remove')">x</button></td>
+    <td><button type="button" class="remove" aria-label="Remove product" @click="emit('remove')">×</button></td>
   </tr>
 </template>
+
+<style scoped>
+.remove { border: 0; background: transparent; color: #73839f; font-size: 20px; line-height: 1; cursor: pointer; }
+.remove:hover { color: #d9364f; }
+</style>
