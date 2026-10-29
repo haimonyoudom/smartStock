@@ -13,7 +13,7 @@ const router = createRouter({
       component: () => import('@/pages/AlertsPage.vue') },
     { path: '/sales', name: 'sale',
       component: () => import('@/pages/PlaceholderPage.vue') },
-    { path: '/new-sale', name: 'new-sales', meta: { ownerOnly: true },
+    { path: '/new-sale', name: 'new-sales',
       component: () => import('@/pages/NewSalePage.vue') },
     { path: '/:pathMatch(.*)*', name: 'not-found',
       component: () => import('@/pages/NotFoundPage.vue') },

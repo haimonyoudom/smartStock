@@ -2,6 +2,9 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { sales as sampleSales } from '@/data'
 import { productsApi } from '@/api/products'
+import { salesApi } from '@/api/sales'
+import { saleItemsApi } from '@/api/saleItems'
+import { stockMovementsApi } from '@/api/stockMovements'
 import { useAuthStore } from './auth'
 import { useProductsStore } from './products'
 import type { CartItem, Sale, SaleItem, StockMovement } from '@/types'
@@ -80,6 +83,23 @@ export const useSalesStore = defineStore('sales', () => {
       createdBy: auth.currentUser.id,
       items,
     }
+
+    try {
+      await salesApi.create({
+        id: sale.id,
+        saleDate: sale.saleDate,
+        totalAmount: sale.totalAmount,
+        createdBy: sale.createdBy,
+      })
+      await Promise.all(items.map((item) => saleItemsApi.create(item)))
+      await Promise.all(movements.map((movement) => stockMovementsApi.create(movement)))
+    } catch (e) {
+      return {
+        ok: false,
+        error: e instanceof Error ? `Could not save sale records: ${e.message}` : 'Could not save sale records.',
+      }
+    }
+
     sales.value.unshift(sale)
     productsStore.stockMovements.unshift(...movements)
     return { ok: true, sale }
