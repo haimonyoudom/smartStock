@@ -1,0 +1,135 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "Owner",
+      "email": "owner@shop.com",
+      "role": "OWNER"
+    },
+    {
+      "id": "u2",
+      "name": "Cashier",
+      "email": "cashier@shop.com",
+      "role": "CASHIER"
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": "Coca-Cola 330ml",
+      "sku": "CC-330",
+      "sellingPrice": 0.8,
+      "stockQuantity": 39,
+      "lowStockThreshold": 10,
+      "active": true
+    },
+    {
+      "id": "p2",
+      "name": "Milk 1L",
+      "sku": "MK-1L",
+      "sellingPrice": 1.5,
+      "stockQuantity": 2,
+      "lowStockThreshold": 5,
+      "active": true
+    },
+    {
+      "id": "p3",
+      "name": "Instant noodles",
+      "sku": "NO-01",
+      "sellingPrice": 0.4,
+      "stockQuantity": 120,
+      "lowStockThreshold": 20,
+      "active": true
+    },
+    {
+      "id": "p4",
+      "name": "Rice 5kg",
+      "sku": "RC-5",
+      "sellingPrice": 6,
+      "stockQuantity": 15,
+      "lowStockThreshold": 5,
+      "active": true
+    },
+    {
+      "id": "p5",
+      "name": "Sugar 1kg",
+      "sku": "SG-1",
+      "sellingPrice": 1.2,
+      "stockQuantity": 4,
+      "lowStockThreshold": 10,
+      "active": true
+    },
+    {
+      "name": "Budak",
+      "sku": "B1234",
+      "sellingPrice": 2.4,
+      "stockQuantity": 3,
+      "lowStockThreshold": 5,
+      "active": true,
+      "id": "gxO1DW4"
+    }
+  ],
+  "sales": [
+    {
+      "id": "1042",
+      "saleDate": "2026-10-23T10:15:00",
+      "totalAmount": 8.1,
+      "createdBy": "u2"
+    },
+    {
+      "id": "1041",
+      "saleDate": "2026-10-22T16:40:00",
+      "totalAmount": 3.2,
+      "createdBy": "u2"
+    },
+    {
+      "id": "1040",
+      "saleDate": "2026-10-22T09:05:00",
+      "totalAmount": 12,
+      "createdBy": "u1"
+    }
+  ],
+  "saleItems": [
+    {
+      "id": "si1",
+      "saleId": "1042",
+      "productId": "p1",
+      "quantity": 2,
+      "unitPrice": 0.8,
+      "subtotal": 1.6
+    },
+    {
+      "id": "si2",
+      "saleId": "1042",
+      "productId": "p3",
+      "quantity": 5,
+      "unitPrice": 0.4,
+      "subtotal": 2
+    },
+    {
+      "id": "si3",
+      "saleId": "1042",
+      "productId": "p2",
+      "quantity": 3,
+      "unitPrice": 1.5,
+      "subtotal": 4.5
+    },
+    {
+      "id": "si4",
+      "saleId": "1041",
+      "productId": "p3",
+      "quantity": 8,
+      "unitPrice": 0.4,
+      "subtotal": 3.2
+    },
+    {
+      "id": "si5",
+      "saleId": "1040",
+      "productId": "p4",
+      "quantity": 2,
+      "unitPrice": 6,
+      "subtotal": 12
+    }
+  ],
+  "stockMovements": []
+}

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useProductsStore } from '@/stores/products'
 import { useSalesStore } from '@/stores/sales'
 import ProductSelect from '@/components/ProductSelect.vue'
@@ -10,10 +11,14 @@ import type { CartItem, CartLine } from '@/types'
 
 const productsStore = useProductsStore()
 const salesStore = useSalesStore()
+const { status: productsStatus, error: productsError } = storeToRefs(productsStore)
 
 const cart = ref<CartItem[]>([])
 const errorMessage = ref<string | null>(null)
 const successMessage = ref<string | null>(null)
+const saving = ref(false)
+
+onMounted(() => productsStore.fetchAll())
 
 const activeProducts = computed(() => productsStore.products.filter((p) => p.active))
 
@@ -81,8 +86,11 @@ function onRemove(productId: string) {
   cart.value = cart.value.filter((i) => i.productId !== productId)
 }
 
-function onComplete() {
-  const result = salesStore.completeSale(cart.value)
+async function onComplete() {
+  if (saving.value) return
+  saving.value = true
+  const result = await salesStore.completeSale(cart.value)
+  saving.value = false
   if (result.ok) {
     cart.value = []
     errorMessage.value = null
@@ -100,8 +108,17 @@ function onComplete() {
     <p v-if="successMessage" class="ok">{{ successMessage }}</p>
     <p class="subtitle">Manage your store with a clear, simple workflow.</p>
     <div class="sale-grid">
-      <div class="card picker-card"><h2>Add products to sale</h2><p class="hint">Search and add available products to the cart.</p><ProductSelect :products="activeProducts" @add="onAdd" /></div>
-      <div class="card cart-card"><h2>Current sale</h2><CartTable :lines="cartLines" @update-quantity="onUpdateQuantity" @remove="onRemove" /><SaleSummary :total="total" :can-complete="cart.length > 0" @complete="onComplete" /><p class="hint center">Stock updates after successful checkout.</p></div>
+      <div class="card picker-card">
+        <h2>Add products to sale</h2>
+        <p class="hint">Search and add available products to the cart.</p>
+        <p v-if="productsStatus === 'loading'" class="state">Loading products...</p>
+        <div v-else-if="productsStatus === 'error'" class="state">
+          <ErrorBanner :message="productsError" />
+          <button class="btn" type="button" @click="productsStore.fetchAll()">Try again</button>
+        </div>
+        <ProductSelect v-else-if="productsStatus === 'success'" :products="activeProducts" @add="onAdd" />
+      </div>
+      <div class="card cart-card"><h2>Current sale</h2><CartTable :lines="cartLines" @update-quantity="onUpdateQuantity" @remove="onRemove" /><SaleSummary :total="total" :can-complete="cart.length > 0 && !saving" @complete="onComplete" /><p class="hint center">{{ saving ? 'Saving stock changes...' : 'Stock updates after successful checkout.' }}</p></div>
     </div>
     <ErrorBanner :message="errorMessage" />
   </section>

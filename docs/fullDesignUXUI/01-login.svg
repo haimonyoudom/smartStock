@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+<defs>
+ <style>
+  text{font-family:Inter,Arial,sans-serif;fill:#172b4d}
+  .muted{fill:#73839f}.tiny{font-size:11px}.small{font-size:12px}.body{font-size:14px}
+  .title{font-size:24px;font-weight:700}.section{font-size:16px;font-weight:700}
+  .card{fill:#fff;stroke:#e6ecf5;stroke-width:1}.btn{fill:#3867ed}.btntext{fill:#fff;font-size:13px;font-weight:700}
+  .line{stroke:#edf1f7;stroke-width:1}.pill{font-size:11px;font-weight:700}
+ </style>
+</defs>
+
+<rect width="1280" height="800" fill="#f3f6fc"/>
+<rect x="0" y="0" width="550" height="800" fill="#102344"/>
+<circle cx="460" cy="140" r="180" fill="#1d3764" opacity=".6"/><circle cx="90" cy="700" r="220" fill="#1d3764" opacity=".45"/>
+<rect x="65" y="62" width="48" height="48" rx="13" fill="#3867ed"/><path d="M77 79l12-7 12 7v14l-12 7-12-7z" fill="none" stroke="#fff" stroke-width="2"/>
+<text x="128" y="85" font-size="25" font-weight="700" fill="#fff">SmartStock</text><text x="128" y="105" font-size="12" fill="#c5d4ee">Inventory &amp; Sales Management</text>
+<text x="65" y="310" font-size="34" font-weight="700" fill="#fff">A smarter way to</text><text x="65" y="353" font-size="34" font-weight="700" fill="#fff">manage your store.</text>
+<text x="65" y="394" font-size="16" fill="#d1def4">Keep products organized, record sales,</text><text x="65" y="418" font-size="16" fill="#d1def4">and stay on top of stock levels.</text>
+<rect x="620" y="115" width="570" height="570" rx="20" fill="#fff" stroke="#e5ebf5"/>
+<text x="680" y="190" font-size="28" font-weight="700">Welcome back</text><text x="680" y="220" class="muted body">Sign in to continue to your workspace.</text>
+<text x="680" y="282" class="body" font-weight="700">Email address</text><rect x="680" y="296" width="450" height="48" rx="9" fill="#fff" stroke="#dce4f0"/><text x="698" y="325" class="muted body">name@example.com</text>
+<text x="680" y="384" class="body" font-weight="700">Password</text><rect x="680" y="398" width="450" height="48" rx="9" fill="#fff" stroke="#dce4f0"/><text x="698" y="427" class="muted body">••••••••••</text><text x="1104" y="427" class="muted small">Show</text>
+<rect x="680" y="476" width="450" height="50" rx="9" fill="#3867ed"/><text x="905" y="507" text-anchor="middle" class="btntext" font-size="15">Sign in</text>
+<text x="905" y="565" text-anchor="middle" class="muted small">Demo access for Owner and Cashier</text>
+<rect x="680" y="598" width="450" height="45" rx="9" fill="#f0f5ff"/><text x="905" y="625" text-anchor="middle" font-size="12" fill="#3867ed">Secure access to your store dashboard</text>
+</svg>

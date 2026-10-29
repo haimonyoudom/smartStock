@@ -26,8 +26,27 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 ## Project Setup
 
 ```sh
+cd frontend/
 npm install
 ```
+
+### Run the Application
+
+Start the API and frontend development server in separate terminals from the `frontend` directory.
+
+Terminal 1:
+
+```sh
+npm run api
+```
+
+Terminal 2:
+
+```sh
+npm run dev
+```
+
+Open the URL shown by Vite, usually `http://localhost:5173`.
 
 ### Compile and Hot-Reload for Development
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useProductsStore } from '@/stores/products'
 import LowStockTable from '@/components/LowStockTable.vue'
 import StockAdjustModal from '@/components/StockAdjustModal.vue'
@@ -7,9 +8,12 @@ import ErrorBanner from '@/components/ErrorBanner.vue'
 import type { Product } from '@/types'
 
 const productsStore = useProductsStore()
+const { status: productsStatus, error: productsError } = storeToRefs(productsStore)
 
 const adjustingProductId = ref<string | null>(null)
 const errorMessage = ref<string | null>(null)
+
+onMounted(() => productsStore.fetchAll())
 
 // A product is in the list while stock <= threshold, and leaves it automatically.
 const lowStockProducts = computed(() =>
@@ -25,9 +29,9 @@ function onAdjust(product: Product) {
   adjustingProductId.value = product.id
 }
 
-function onSave(payload: { change: number; reason: string }) {
+async function onSave(payload: { change: number; reason: string }) {
   if (!adjustingProductId.value) return
-  const result = productsStore.adjustStock(adjustingProductId.value, payload.change, payload.reason)
+  const result = await productsStore.adjustStock(adjustingProductId.value, payload.change, payload.reason)
   if (result.ok) {
     adjustingProductId.value = null
     errorMessage.value = null
@@ -46,6 +50,8 @@ function onCancel() {
   <section class="page">
     <h1>Low-stock alerts</h1>
     <p class="subtitle">Manage your store with a clear, simple workflow.</p>
+    <p v-if="productsStatus === 'loading'" class="state">Loading alerts...</p>
+    <ErrorBanner v-else-if="productsStatus === 'error'" :message="productsError" />
     <div class="alert-banner"><span class="alert-icon">!</span><div><strong>{{ lowStockProducts.length }} products need attention</strong><p>Stock is at or below its low-stock threshold. Adjust stock to keep sales moving.</p></div></div>
     <div class="card"><div class="section-heading"><h2>Low-stock products</h2><span>Sorted by lowest stock</span></div><LowStockTable :products="lowStockProducts" @adjust="onAdjust" /></div>
     <ErrorBanner :message="errorMessage" />
