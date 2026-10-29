@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { sales as sampleSales } from '@/data'
+import { productsApi } from '@/api/products'
 import { useAuthStore } from './auth'
 import { useProductsStore } from './products'
 import type { CartItem, Sale, SaleItem, StockMovement } from '@/types'
@@ -15,7 +16,7 @@ export const useSalesStore = defineStore('sales', () => {
   const auth = useAuthStore()
 
   // All or nothing: check everything first, change data only if every line is valid.
-  function completeSale(cart: CartItem[]): CompleteSaleResult {
+  async function completeSale(cart: CartItem[]): Promise<CompleteSaleResult> {
     if (cart.length === 0) return { ok: false, error: 'The cart is empty.' }
 
     for (const item of cart) {
@@ -30,6 +31,25 @@ export const useSalesStore = defineStore('sales', () => {
     const now = new Date().toISOString()
     const items: SaleItem[] = []
     const movements: StockMovement[] = []
+
+    const updatedProducts = cart.map((item) => {
+      const product = productsStore.products.find((p) => p.id === item.productId)!
+      return {
+        product,
+        stockQuantity: product.stockQuantity - item.quantity,
+      }
+    })
+
+    try {
+      await Promise.all(updatedProducts.map(({ product, stockQuantity }) =>
+        productsApi.update(product.id, { stockQuantity }),
+      ))
+    } catch (e) {
+      return {
+        ok: false,
+        error: e instanceof Error ? `Could not save stock changes: ${e.message}` : 'Could not save stock changes.',
+      }
+    }
 
     cart.forEach((item, index) => {
       const product = productsStore.products.find((p) => p.id === item.productId)!
@@ -50,7 +70,7 @@ export const useSalesStore = defineStore('sales', () => {
         reason: `Sale #${saleId}`,
         createdAt: now,
       })
-      product.stockQuantity -= item.quantity
+      product.stockQuantity = updatedProducts[index].stockQuantity
     })
 
     const sale: Sale = {
