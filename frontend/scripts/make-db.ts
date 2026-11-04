@@ -3,8 +3,8 @@ import { products } from '../src/data/products'
 import { sales } from '../src/data/sales'
 
 const users = [
-  { id: 'u1', name: 'Owner', email: 'owner@shop.com', role: 'OWNER' },
-  { id: 'u2', name: 'Cashier', email: 'cashier@shop.com', role: 'CASHIER' },
+  { id: 'u1', name: 'Owner', email: 'owner@shop.com', role: 'OWNER', active: true },
+  { id: 'u2', name: 'Cashier', email: 'cashier@shop.com', role: 'CASHIER', active: true },
 ]
 
 const db = {
