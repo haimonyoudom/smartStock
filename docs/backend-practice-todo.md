@@ -31,10 +31,10 @@ npm install class-validator class-transformer
 
 Update `src/main.ts`:
 
-- [ ] Enable a global `ValidationPipe`.
-- [ ] Set `whitelist: true`.
-- [ ] Set `forbidNonWhitelisted: true`.
-- [ ] Set `transform: true`.
+- [X] Enable a global `ValidationPipe`.
+- [X] Set `whitelist: true`.
+- [X] Set `forbidNonWhitelisted: true`.
+- [X] Set `transform: true`.
 
 An invalid request must return `400 Bad Request` with validation messages.
 An unknown property such as `"unknown": true` must be rejected.
@@ -43,8 +43,8 @@ An unknown property such as `"unknown": true` must be rejected.
 
 Create a Users module with an in-memory user list matching `db.json`.
 
-- [ ] Create a User type or interface.
-- [ ] Include `id`, `name`, `email`, `role`, and `active`.
+- [X] Create a User type or interface.
+- [X] Include `id`, `name`, `email`, `role`, and `active`.
 - [ ] Implement `GET /users`, returning `200 OK` with `User[]`.
 - [ ] Implement `GET /users/:id`, returning `200 OK` with `User`.
 - [ ] Return `404 Not Found` for an unknown user ID.
