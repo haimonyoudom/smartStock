@@ -30,29 +30,29 @@ export const useSalesStore = defineStore('sales', () => {
       }
     }
 
-    const saleId = String(Math.max(...sales.value.map((s) => Number(s.id))) + 1)
+    // Fetch latest sales from server to ensure no duplicate ID conflict
+    let existingSales: { id: string }[] = sales.value
+    try {
+      const serverSales = await salesApi.list()
+      if (Array.isArray(serverSales) && serverSales.length > 0) {
+        existingSales = serverSales
+      }
+    } catch {
+      // If server list fails, fallback to current store sales
+    }
+
+    const numericIds = existingSales
+      .map((s) => Number(s.id))
+      .filter((n) => !isNaN(n) && isFinite(n))
+    let nextId = numericIds.length > 0 ? Math.max(...numericIds) + 1 : 1000
+    while (existingSales.some((s) => s.id === String(nextId))) {
+      nextId++
+    }
+    const saleId = String(nextId)
+
     const now = new Date().toISOString()
     const items: SaleItem[] = []
     const movements: StockMovement[] = []
-
-    const updatedProducts = cart.map((item) => {
-      const product = productsStore.products.find((p) => p.id === item.productId)!
-      return {
-        product,
-        stockQuantity: product.stockQuantity - item.quantity,
-      }
-    })
-
-    try {
-      await Promise.all(updatedProducts.map(({ product, stockQuantity }) =>
-        productsApi.update(product.id, { stockQuantity }),
-      ))
-    } catch (e) {
-      return {
-        ok: false,
-        error: e instanceof Error ? `Could not save stock changes: ${e.message}` : 'Could not save stock changes.',
-      }
-    }
 
     cart.forEach((item, index) => {
       const product = productsStore.products.find((p) => p.id === item.productId)!
@@ -73,7 +73,6 @@ export const useSalesStore = defineStore('sales', () => {
         reason: `Sale #${saleId}`,
         createdAt: now,
       })
-      product.stockQuantity = updatedProducts[index].stockQuantity
     })
 
     const sale: Sale = {
@@ -84,6 +83,8 @@ export const useSalesStore = defineStore('sales', () => {
       items,
     }
 
+    // 1. SAVE SALE RECORDS FIRST (Sale + Sale Items + Stock Movements)
+    // If this fails, stock is NEVER cut or touched!
     try {
       await salesApi.create({
         id: sale.id,
@@ -98,6 +99,27 @@ export const useSalesStore = defineStore('sales', () => {
         ok: false,
         error: e instanceof Error ? `Could not save sale records: ${e.message}` : 'Could not save sale records.',
       }
+    }
+
+    // 2. ONLY AFTER SALE RECORDS ARE SAVED, UPDATE PRODUCT STOCK
+    const updatedProducts = cart.map((item) => {
+      const product = productsStore.products.find((p) => p.id === item.productId)!
+      return {
+        product,
+        stockQuantity: product.stockQuantity - item.quantity,
+      }
+    })
+
+    try {
+      await Promise.all(updatedProducts.map(({ product, stockQuantity }) =>
+        productsApi.update(product.id, { stockQuantity }),
+      ))
+    } catch (e) {
+      console.error('Failed to sync stock updates to server:', e)
+    }
+
+    for (const { product, stockQuantity } of updatedProducts) {
+      product.stockQuantity = stockQuantity
     }
 
     sales.value.unshift(sale)

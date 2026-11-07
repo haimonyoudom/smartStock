@@ -8,8 +8,8 @@ const emit = defineEmits<{ 'update-quantity': [quantity: number]; remove: [] }>(
 
 <template>
   <tr>
-    <td>{{ line.name }}</td>
-    <td>${{ line.unitPrice.toFixed(2) }}</td>
+    <td style="font-size: 13px">{{ line.name }}</td>
+    <td style="font-size: 13px">${{ line.unitPrice.toFixed(2) }}</td>
     <td>
       <QuantityStepper
         :model-value="line.quantity"
@@ -17,12 +17,15 @@ const emit = defineEmits<{ 'update-quantity': [quantity: number]; remove: [] }>(
         @update:model-value="(value) => emit('update-quantity', value)"
       />
     </td>
-    <td>${{ (line.unitPrice * line.quantity).toFixed(2) }}</td>
-    <td><button type="button" class="remove" aria-label="Remove product" @click="emit('remove')">×</button></td>
+    <td style="font-size: 13px">${{ (line.unitPrice * line.quantity).toFixed(2) }}</td>
+    <td>
+      <button
+        type="button"
+        class="btn btn-sm border-0 bg-transparent text-danger"
+        style="font-size: 20px; line-height: 1"
+        aria-label="Remove product"
+        @click="emit('remove')"
+      >×</button>
+    </td>
   </tr>
 </template>
-
-<style scoped>
-.remove { border: 0; background: transparent; color: #73839f; font-size: 20px; line-height: 1; cursor: pointer; }
-.remove:hover { color: #d9364f; }
-</style>

@@ -231,7 +231,7 @@ POST http://localhost:3000/sales
   "items": [
     {
       "productId": "p2",
-      "quantity": 999
+      "quantity": 100
     }
   ]
 }

@@ -21,7 +21,7 @@
       "name": "Coca-Cola 330ml",
       "sku": "CC-330",
       "sellingPrice": 0.8,
-      "stockQuantity": 39,
+      "stockQuantity": 35,
       "lowStockThreshold": 10,
       "active": true
     },
@@ -30,7 +30,7 @@
       "name": "Milk 1L",
       "sku": "MK-1L",
       "sellingPrice": 1.5,
-      "stockQuantity": 2,
+      "stockQuantity": 7,
       "lowStockThreshold": 5,
       "active": true
     },
@@ -69,6 +69,15 @@
       "lowStockThreshold": 5,
       "active": true,
       "id": "gxO1DW4"
+    },
+    {
+      "name": "Sting",
+      "sku": "s21",
+      "sellingPrice": 2,
+      "stockQuantity": 13,
+      "lowStockThreshold": 5,
+      "active": true,
+      "id": "7aRhQ9t"
     }
   ],
   "sales": [
@@ -88,6 +97,24 @@
       "id": "1040",
       "saleDate": "2026-10-22T09:05:00",
       "totalAmount": 12,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1043",
+      "saleDate": "2026-11-06T00:52:23.058Z",
+      "totalAmount": 14,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1044",
+      "saleDate": "2026-11-06T00:53:23.659Z",
+      "totalAmount": 3,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1045",
+      "saleDate": "2026-11-07T14:40:31.074Z",
+      "totalAmount": 1.6,
       "createdBy": "u1"
     }
   ],
@@ -131,7 +158,59 @@
       "quantity": 2,
       "unitPrice": 6,
       "subtotal": 12
+    },
+    {
+      "id": "1043-1",
+      "saleId": "1043",
+      "productId": "7aRhQ9t",
+      "quantity": 7,
+      "unitPrice": 2,
+      "subtotal": 14
+    },
+    {
+      "id": "1044-1",
+      "saleId": "1044",
+      "productId": "p2",
+      "quantity": 2,
+      "unitPrice": 1.5,
+      "subtotal": 3
+    },
+    {
+      "id": "1045-1",
+      "saleId": "1045",
+      "productId": "p1",
+      "quantity": 2,
+      "unitPrice": 0.8,
+      "subtotal": 1.6
     }
   ],
-  "stockMovements": []
+  "stockMovements": [
+    {
+      "id": "m-1043-1",
+      "productId": "7aRhQ9t",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -7,
+      "reason": "Sale #1043",
+      "createdAt": "2026-11-06T00:52:23.058Z"
+    },
+    {
+      "id": "m-1044-1",
+      "productId": "p2",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -2,
+      "reason": "Sale #1044",
+      "createdAt": "2026-11-06T00:53:23.659Z"
+    },
+    {
+      "id": "m-1045-1",
+      "productId": "p1",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -2,
+      "reason": "Sale #1045",
+      "createdAt": "2026-11-07T14:40:31.074Z"
+    }
+  ]
 }

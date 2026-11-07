@@ -10,27 +10,27 @@ const reason = ref('')
 </script>
 
 <template>
-  <div class="panel">
-    <h2>Adjust stock: {{ product.name }}</h2>
-    <p>Current stock: {{ product.stockQuantity }}</p>
-    <label>
-      Change (use a negative number to remove stock)
-      <input v-model.number="change" type="number" step="1" />
-    </label>
-    <label>
-      Reason
-      <input v-model="reason" type="text" placeholder="e.g. Restock delivery" />
-    </label>
-    <div class="buttons">
-      <button type="button" class="btn btn-success" @click="emit('save', { change, reason })">Save</button>
-      <button type="button" class="btn btn-danger" @click="emit('cancel')">Cancel</button>
+  <div class="card border-0 shadow-sm mt-3" style="max-width: 24rem">
+    <div class="card-body d-flex flex-column gap-3">
+      <h5 class="mb-0">Adjust stock: {{ product.name }}</h5>
+      <p class="text-muted mb-0" style="font-size: 13px">Current stock: {{ product.stockQuantity }}</p>
+
+      <div>
+        <label class="form-label small fw-semibold">
+          Change (use a negative number to remove stock)
+        </label>
+        <input v-model.number="change" class="form-control" type="number" step="1" />
+      </div>
+
+      <div>
+        <label class="form-label small fw-semibold">Reason</label>
+        <input v-model="reason" class="form-control" type="text" placeholder="e.g. Restock delivery" />
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="button" class="btn btn-success" @click="emit('save', { change, reason })">Save</button>
+        <button type="button" class="btn btn-danger" @click="emit('cancel')">Cancel</button>
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.panel { display: flex; flex-direction: column; gap: 0.75rem; max-width: 24rem; padding: 1rem; border: 1px solid #555; border-radius: 6px; background: #fff; }
-label { display: flex; flex-direction: column; gap: 0.25rem; }
-input { padding: 0.4rem; }
-.buttons { display: flex; gap: 0.75rem; }
-</style>

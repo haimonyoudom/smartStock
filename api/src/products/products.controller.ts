@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { UpdateProductDto } from './dto/update-product.dto.js';
+import { AdjustStockDto } from '../stock-movements/dto/adjust-stock.dto.js';
 import { ProductsService } from './products.service.js';
 
 @Controller('products')
@@ -45,5 +46,10 @@ export class ProductsController {
   @HttpCode(204)
   remove(@Param('id') id: string) {
     this.productsService.remove(id);
+  }
+
+  @Post(':id/adjust-stock')
+  adjustStock(@Param('id') id: string, @Body() dto: AdjustStockDto) {
+    return this.productsService.adjustStock(id, dto);
   }
 }

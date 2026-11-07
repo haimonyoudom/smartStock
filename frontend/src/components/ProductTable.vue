@@ -7,28 +7,29 @@ const emit = defineEmits<{ edit: [product: Product]; adjust: [product: Product];
 </script>
 
 <template>
-  <table>
-    <thead>
-      <tr><th>Product</th><th>SKU</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr>
-    </thead>
-    <tbody>
-      <ProductRow
-        v-for="product in products"
-        :key="product.id"
-        :product="product"
-        :can-manage="canManage"
-        @edit="emit('edit', product)"
-        @adjust="emit('adjust', product)"
-        @history="emit('history', product)"
-      />
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="text-uppercase text-muted small">Product</th>
+          <th class="text-uppercase text-muted small">SKU</th>
+          <th class="text-uppercase text-muted small">Price</th>
+          <th class="text-uppercase text-muted small">Stock</th>
+          <th class="text-uppercase text-muted small">Status</th>
+          <th class="text-uppercase text-muted small">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ProductRow
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+          :can-manage="canManage"
+          @edit="emit('edit', product)"
+          @adjust="emit('adjust', product)"
+          @history="emit('history', product)"
+        />
+      </tbody>
+    </table>
+  </div>
 </template>
-
-<style scoped>
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 15px 10px; border-bottom: 1px solid #edf1f7; text-align: left; white-space: nowrap; }
-th { background: #f6f8fc; color: #73839f; font-size: 11px; font-weight: 600; text-transform: uppercase; }
-td { color: #172b4d; font-size: 13px; }
-th:first-child, td:first-child { padding-left: 16px; }
-</style>

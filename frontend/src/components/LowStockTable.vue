@@ -6,31 +6,37 @@ const emit = defineEmits<{ adjust: [product: Product] }>()
 </script>
 
 <template>
-  <table>
-    <thead>
-      <tr><th>Product</th><th>SKU</th><th>Current stock</th><th>Threshold</th><th>Status</th><th>Action</th></tr>
-    </thead>
-    <tbody>
-      <tr v-for="product in products" :key="product.id" class="low">
-        <td>{{ product.name }}</td>
-        <td>{{ product.sku }}</td>
-        <td>{{ product.stockQuantity }}</td>
-        <td>{{ product.lowStockThreshold }}</td>
-        <td><span class="badge">Low stock</span></td>
-        <td><button type="button" class="btn btn-primary" @click="emit('adjust', product)">Adjust stock</button></td>
-      </tr>
-      <tr v-if="products.length === 0">
-        <td colspan="6" class="empty">No products are low on stock.</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th class="text-uppercase text-muted small">Product</th>
+          <th class="text-uppercase text-muted small">SKU</th>
+          <th class="text-uppercase text-muted small">Current stock</th>
+          <th class="text-uppercase text-muted small">Threshold</th>
+          <th class="text-uppercase text-muted small">Status</th>
+          <th class="text-uppercase text-muted small">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="product in products" :key="product.id">
+          <td style="font-size: 13px">{{ product.name }}</td>
+          <td style="font-size: 13px">{{ product.sku }}</td>
+          <td style="font-size: 13px">{{ product.stockQuantity }}</td>
+          <td style="font-size: 13px">{{ product.lowStockThreshold }}</td>
+          <td><span class="badge bg-danger">Low stock</span></td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              @click="emit('adjust', product)"
+            >Adjust stock</button>
+          </td>
+        </tr>
+        <tr v-if="products.length === 0">
+          <td colspan="6" class="text-center text-muted py-3">No products are low on stock.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
-
-<style scoped>
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 15px 10px; border-bottom: 1px solid #edf1f7; text-align: left; white-space: nowrap; }
-th { background: #f6f8fc; color: #73839f; font-size: 11px; text-transform: uppercase; }
-td { color: #172b4d; font-size: 13px; }
-.badge { padding: 4px 9px; border-radius: 12px; background: #fff0f1; color: #d9364f; font-size: 11px; font-weight: 700; }
-.empty { color: #777; background: #fff; }
-</style>

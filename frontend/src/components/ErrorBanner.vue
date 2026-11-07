@@ -3,9 +3,7 @@ defineProps<{ message: string | null }>()
 </script>
 
 <template>
-  <p v-if="message" class="error">{{ message }}</p>
+  <div v-if="message" class="alert alert-danger mt-3" role="alert">
+    {{ message }}
+  </div>
 </template>
-
-<style scoped>
-.error { padding: 0.6rem 0.8rem; background: #ffe3e3; border: 1px solid #c33; border-radius: 4px; }
-</style>

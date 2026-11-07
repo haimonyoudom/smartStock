@@ -38,79 +38,113 @@ function formatType(type: string) {
 </script>
 
 <template>
-  <section class="page">
-    <RouterLink class="back" to="/products">← Back to products</RouterLink>
+  <section style="max-width: 1000px">
+    <RouterLink class="btn btn-link p-0 mb-3 text-decoration-none" to="/products">
+      ← Back to products
+    </RouterLink>
 
-    <p v-if="status === 'loading' || status === 'idle'" class="state">Loading...</p>
-    <p v-else-if="status === 'error'" class="state error">Could not load the product.</p>
-    <div v-else-if="!product" class="card state">
-      <h2>Product not found</h2>
-      <p>This product does not exist.</p>
+    <p v-if="status === 'loading' || status === 'idle'" class="text-muted py-3">Loading...</p>
+    <p v-else-if="status === 'error'" class="text-danger py-3">Could not load the product.</p>
+
+    <div v-else-if="!product" class="card border-0 shadow-sm p-4">
+      <h2 style="font-size: 18px">Product not found</h2>
+      <p class="text-muted mb-0">This product does not exist.</p>
     </div>
 
     <template v-else>
-      <div class="header">
+      <!-- Header -->
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-start gap-3 mb-4">
         <div>
-          <h1>{{ product.name }}</h1>
-          <p class="subtitle">SKU {{ product.sku }}</p>
+          <h1 class="mb-1" style="color: #172b4d; font-size: 24px">{{ product.name }}</h1>
+          <p class="text-muted mb-0" style="font-size: 13px">SKU {{ product.sku }}</p>
         </div>
-        <div class="badges">
-          <span v-if="!product.active" class="badge badge-grey">Inactive</span>
-          <span :class="['badge', isLow ? 'badge-red' : 'badge-green']">
+        <div class="d-flex gap-2 flex-shrink-0">
+          <span v-if="!product.active" class="badge bg-secondary">Inactive</span>
+          <span :class="['badge', isLow ? 'bg-danger' : 'bg-success']">
             {{ isLow ? 'Low stock' : 'In stock' }}
           </span>
         </div>
       </div>
 
-      <div class="stats">
-        <div class="card stat">
-          <span class="stat-label">Current stock</span>
-          <strong :class="{ low: isLow }">{{ product.stockQuantity }}</strong>
+      <!-- Stat cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <div class="text-muted mb-1" style="font-size: 12px">Current stock</div>
+              <strong :class="isLow ? 'text-danger' : 'text-dark'" style="font-size: 22px">
+                {{ product.stockQuantity }}
+              </strong>
+            </div>
+          </div>
         </div>
-        <div class="card stat">
-          <span class="stat-label">Low-stock threshold</span>
-          <strong>{{ product.lowStockThreshold }}</strong>
+        <div class="col-6 col-md-3">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <div class="text-muted mb-1" style="font-size: 12px">Low-stock threshold</div>
+              <strong class="text-dark" style="font-size: 22px">{{ product.lowStockThreshold }}</strong>
+            </div>
+          </div>
         </div>
-        <div class="card stat">
-          <span class="stat-label">Selling price</span>
-          <strong>${{ product.sellingPrice.toFixed(2) }}</strong>
+        <div class="col-6 col-md-3">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <div class="text-muted mb-1" style="font-size: 12px">Selling price</div>
+              <strong class="text-dark" style="font-size: 22px">${{ product.sellingPrice.toFixed(2) }}</strong>
+            </div>
+          </div>
         </div>
-        <div class="card stat">
-          <span class="stat-label">Movements</span>
-          <strong>{{ movements.length }}</strong>
+        <div class="col-6 col-md-3">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <div class="text-muted mb-1" style="font-size: 12px">Movements</div>
+              <strong class="text-dark" style="font-size: 22px">{{ movements.length }}</strong>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="card history">
-        <div class="section-heading">
-          <h2>Stock history</h2>
-          <span>{{ movements.length }} records</span>
+      <!-- Stock history card -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body pb-0">
+          <div class="d-flex justify-content-between align-items-center mb-3 px-1">
+            <h2 class="mb-0" style="font-size: 16px; color: #172b4d">Stock history</h2>
+            <span class="text-muted" style="font-size: 12px">{{ movements.length }} records</span>
+          </div>
         </div>
 
-        <p v-if="movements.length === 0" class="empty">No stock movements yet.</p>
+        <p v-if="movements.length === 0" class="text-muted px-4 pb-4">No stock movements yet.</p>
 
-        <div v-else class="table-wrap">
-          <table>
-            <thead>
+        <div v-else class="table-responsive">
+          <table class="table table-striped table-hover mb-0">
+            <thead class="table-light">
               <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Change</th>
-                <th>Reason</th>
-                <th>By</th>
+                <th class="text-uppercase text-muted small">Date</th>
+                <th class="text-uppercase text-muted small">Type</th>
+                <th class="text-uppercase text-muted small">Change</th>
+                <th class="text-uppercase text-muted small">Reason</th>
+                <th class="text-uppercase text-muted small">By</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="m in movements" :key="m.id">
-                <td class="muted">{{ formatDate(m.createdAt) }}</td>
-                <td><span class="type">{{ formatType(m.movementType) }}</span></td>
+                <td class="text-muted" style="font-size: 13px">{{ formatDate(m.createdAt) }}</td>
                 <td>
-                  <span :class="['change', m.quantityChange > 0 ? 'plus' : 'minus']">
+                  <span class="badge" style="background: #eef1ff; color: #3f51b5; font-size: 11px">
+                    {{ formatType(m.movementType) }}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="fw-bold"
+                    :class="m.quantityChange > 0 ? 'text-success' : 'text-danger'"
+                    style="font-size: 13px"
+                  >
                     {{ m.quantityChange > 0 ? '+' : '' }}{{ m.quantityChange }}
                   </span>
                 </td>
-                <td>{{ m.reason }}</td>
-                <td class="muted">{{ userName(m.userId) }}</td>
+                <td style="font-size: 13px">{{ m.reason }}</td>
+                <td class="text-muted" style="font-size: 13px">{{ userName(m.userId) }}</td>
               </tr>
             </tbody>
           </table>
@@ -119,47 +153,3 @@ function formatType(type: string) {
     </template>
   </section>
 </template>
-
-<style scoped>
-.page { max-width: 1000px; }
-.back { display: inline-block; margin-bottom: 14px; color: #3f51b5; text-decoration: none; font-size: 13px; }
-.back:hover { text-decoration: underline; }
-.card { border: 1px solid #e6ecf5; border-radius: 13px; background: #fff; }
-h1 { margin: 0; color: #172b4d; font-size: 24px; }
-h2 { margin: 0; color: #172b4d; font-size: 16px; }
-.subtitle { margin: 4px 0 0; color: #73839f; }
-.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-.badges { display: flex; gap: 8px; }
-.badge { padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-.badge-green { background: #e6f6ec; color: #2f8f55; }
-.badge-red { background: #fdeaea; color: #c0392b; }
-.badge-grey { background: #eef1f6; color: #73839f; }
-
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
-.stat { padding: 16px 18px; display: grid; gap: 6px; }
-.stat-label { color: #73839f; font-size: 12px; }
-.stat strong { color: #172b4d; font-size: 22px; }
-.stat strong.low { color: #c0392b; }
-
-.history { padding: 20px 16px 8px; }
-.section-heading { display: flex; justify-content: space-between; padding: 0 8px 14px; }
-.section-heading span { color: #73839f; font-size: 12px; }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th { text-align: left; padding: 12px 12px; background: #f6f8fc; color: #73839f; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
-td { padding: 12px; border-bottom: 1px solid #eef1f6; color: #172b4d; }
-tbody tr:last-child td { border-bottom: none; }
-.muted { color: #73839f; }
-.type { padding: 3px 10px; border-radius: 6px; background: #eef1ff; color: #3f51b5; font-size: 12px; font-weight: 600; }
-.change { font-weight: 700; }
-.plus { color: #2f8f55; }
-.minus { color: #c0392b; }
-.empty { padding: 20px 8px; color: #73839f; }
-.state { padding: 24px 8px; color: #73839f; }
-.error { color: #c0392b; }
-
-@media (max-width: 700px) {
-  .stats { grid-template-columns: repeat(2, 1fr); }
-  .header { flex-direction: column; gap: 12px; }
-}
-</style>

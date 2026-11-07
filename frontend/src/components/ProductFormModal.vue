@@ -35,48 +35,89 @@ function onSubmit() {
   emit('save', { ...form, name: form.name.trim(), sku: form.sku.trim() })
 }
 </script>
+
 <template>
   <Teleport to="body">
-    <div class="pf-backdrop" @click.self="emit('cancel')">
-      <form class="pf-modal" novalidate @submit.prevent="onSubmit">
-        <h2>{{ product ? 'Edit product' : 'Add product' }}</h2>
+    <!-- Backdrop & Modal Container -->
+    <div
+      class="modal d-block pf-backdrop"
+      tabindex="-1"
+      role="dialog"
+      aria-modal="true"
+      @click.self="emit('cancel')"
+    >
+      <!-- Modal Dialog -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 440px; width: 92vw">
+        <form
+          class="modal-content bg-white shadow-lg border rounded-3 overflow-hidden"
+          novalidate
+          @submit.prevent="onSubmit"
+        >
+          <div class="modal-header bg-white border-bottom px-4 py-3">
+            <h5 class="modal-title fw-bold text-dark mb-0">{{ product ? 'Edit product' : 'Add product' }}</h5>
+            <button type="button" class="btn-close" @click="emit('cancel')" aria-label="Close"></button>
+          </div>
 
-        <label>Name
-          <input v-model="form.name" />
-          <p v-if="submitted && errors.name" class="pf-error">{{ errors.name }}</p>
-        </label>
+          <div class="modal-body bg-white d-grid gap-3 p-4">
+            <!-- Name -->
+            <div>
+              <label class="form-label small fw-semibold text-dark">Name</label>
+              <input v-model="form.name" class="form-control" placeholder="Product name" />
+              <p v-if="submitted && errors.name" class="text-danger small mb-0 mt-1">{{ errors.name }}</p>
+            </div>
 
-        <label>SKU
-          <input v-model="form.sku" />
-          <p v-if="submitted && errors.sku" class="pf-error">{{ errors.sku }}</p>
-        </label>
+            <!-- SKU -->
+            <div>
+              <label class="form-label small fw-semibold text-dark">SKU</label>
+              <input v-model="form.sku" class="form-control" placeholder="e.g. PRD-001" />
+              <p v-if="submitted && errors.sku" class="text-danger small mb-0 mt-1">{{ errors.sku }}</p>
+            </div>
 
-        <label>Selling price ($)
-          <input v-model.number="form.sellingPrice" type="number" step="0.01" />
-          <p v-if="submitted && errors.sellingPrice" class="pf-error">{{ errors.sellingPrice }}</p>
-        </label>
+            <!-- Selling price -->
+            <div>
+              <label class="form-label small fw-semibold text-dark">Selling price ($)</label>
+              <input v-model.number="form.sellingPrice" class="form-control" type="number" step="0.01" />
+              <p v-if="submitted && errors.sellingPrice" class="text-danger small mb-0 mt-1">
+                {{ errors.sellingPrice }}
+              </p>
+            </div>
 
-        <label>Stock quantity
-          <input v-model.number="form.stockQuantity" type="number" />
-          <p v-if="submitted && errors.stockQuantity" class="pf-error">{{ errors.stockQuantity }}</p>
-        </label>
+            <!-- Stock quantity -->
+            <div>
+              <label class="form-label small fw-semibold text-dark">Stock quantity</label>
+              <input v-model.number="form.stockQuantity" class="form-control" type="number" />
+              <p v-if="submitted && errors.stockQuantity" class="text-danger small mb-0 mt-1">
+                {{ errors.stockQuantity }}
+              </p>
+            </div>
 
-        <label>Low-stock threshold
-          <input v-model.number="form.lowStockThreshold" type="number" />
-          <p v-if="submitted && errors.lowStockThreshold" class="pf-error">{{ errors.lowStockThreshold }}</p>
-        </label>
+            <!-- Low-stock threshold -->
+            <div>
+              <label class="form-label small fw-semibold text-dark">Low-stock threshold</label>
+              <input v-model.number="form.lowStockThreshold" class="form-control" type="number" />
+              <p v-if="submitted && errors.lowStockThreshold" class="text-danger small mb-0 mt-1">
+                {{ errors.lowStockThreshold }}
+              </p>
+            </div>
 
-        <label class="pf-check"><input v-model="form.active" type="checkbox" /> Active</label>
+            <!-- Active checkbox -->
+            <div class="form-check">
+              <input v-model="form.active" class="form-check-input" type="checkbox" id="pf-active" />
+              <label class="form-check-label small text-dark" for="pf-active">Active</label>
+            </div>
 
-        <p v-if="serverError" class="pf-error">{{ serverError }}</p>
+            <!-- Server error -->
+            <div v-if="serverError" class="alert alert-danger py-2 px-3 small mb-0">{{ serverError }}</div>
+          </div>
 
-        <div class="pf-actions">
-          <button type="button" class="btn" @click="emit('cancel')">Cancel</button>
-          <button type="submit" class="btn btn-primary" :disabled="pending">
-            {{ pending ? 'Saving...' : 'Save' }}
-          </button>
-        </div>
-      </form>
+          <div class="modal-footer bg-white border-top px-4 py-3">
+            <button type="button" class="btn btn-outline-secondary" @click="emit('cancel')">Cancel</button>
+            <button type="submit" class="btn btn-primary" :disabled="pending">
+              {{ pending ? 'Saving...' : 'Save' }}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </Teleport>
 </template>
@@ -84,37 +125,14 @@ function onSubmit() {
 <style scoped>
 .pf-backdrop {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.35);
+  inset: 0;
+  z-index: 1055;
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.pf-modal {
-  position: static;
-  width: 380px;
-  max-width: 92vw;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-sizing: border-box;
-  margin: 0;
-  background: #fff;
-  border-radius: 13px;
-  padding: 24px;
-  display: grid;
-  gap: 12px;
+.modal-content {
+  background-color: #ffffff !important;
 }
-.pf-modal h2 { margin: 0; }
-.pf-modal label { display: grid; gap: 4px; font-size: 13px; color: #172b4d; }
-.pf-modal input:not([type='checkbox']) {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 9px 12px;
-  border: 1px solid #e1e8f3;
-  border-radius: 8px;
-}
-.pf-check { display: flex !important; align-items: center; gap: 8px; }
-.pf-error { margin: 0; color: #c0392b; font-size: 12px; }
-.pf-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
 </style>
