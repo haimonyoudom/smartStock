@@ -21,7 +21,7 @@
       "name": "Coca-Cola 330ml",
       "sku": "CC-330",
       "sellingPrice": 0.8,
-      "stockQuantity": 35,
+      "stockQuantity": 27,
       "lowStockThreshold": 10,
       "active": true
     },
@@ -116,6 +116,12 @@
       "saleDate": "2026-11-07T14:40:31.074Z",
       "totalAmount": 1.6,
       "createdBy": "u1"
+    },
+    {
+      "id": "1046",
+      "saleDate": "2026-11-10T01:32:59.635Z",
+      "totalAmount": 6.4,
+      "createdBy": "u1"
     }
   ],
   "saleItems": [
@@ -182,6 +188,14 @@
       "quantity": 2,
       "unitPrice": 0.8,
       "subtotal": 1.6
+    },
+    {
+      "id": "1046-1",
+      "saleId": "1046",
+      "productId": "p1",
+      "quantity": 8,
+      "unitPrice": 0.8,
+      "subtotal": 6.4
     }
   ],
   "stockMovements": [
@@ -211,6 +225,15 @@
       "quantityChange": -2,
       "reason": "Sale #1045",
       "createdAt": "2026-11-07T14:40:31.074Z"
+    },
+    {
+      "id": "m-1046-1",
+      "productId": "p1",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -8,
+      "reason": "Sale #1046",
+      "createdAt": "2026-11-10T01:32:59.635Z"
     }
   ]
 }

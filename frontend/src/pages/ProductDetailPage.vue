@@ -53,12 +53,12 @@ function formatType(type: string) {
 
     <template v-else>
       <!-- Header -->
-      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-start gap-3 mb-4">
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-start gap-2 mb-3 mb-md-4">
         <div>
-          <h1 class="mb-1" style="color: #172b4d; font-size: 24px">{{ product.name }}</h1>
+          <h1 class="page-title mb-1" style="color: #172b4d">{{ product.name }}</h1>
           <p class="text-muted mb-0" style="font-size: 13px">SKU {{ product.sku }}</p>
         </div>
-        <div class="d-flex gap-2 flex-shrink-0">
+        <div class="d-flex gap-2 flex-shrink-0 mt-1 mt-sm-0">
           <span v-if="!product.active" class="badge bg-secondary">Inactive</span>
           <span :class="['badge', isLow ? 'bg-danger' : 'bg-success']">
             {{ isLow ? 'Low stock' : 'In stock' }}
@@ -67,12 +67,12 @@ function formatType(type: string) {
       </div>
 
       <!-- Stat cards -->
-      <div class="row g-3 mb-4">
+      <div class="row g-2 g-md-3 mb-3 mb-md-4">
         <div class="col-6 col-md-3">
           <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-              <div class="text-muted mb-1" style="font-size: 12px">Current stock</div>
-              <strong :class="isLow ? 'text-danger' : 'text-dark'" style="font-size: 22px">
+            <div class="card-body p-3">
+              <div class="text-muted mb-1" style="font-size: 11px">Current stock</div>
+              <strong :class="isLow ? 'text-danger' : 'text-dark'" class="stat-number">
                 {{ product.stockQuantity }}
               </strong>
             </div>
@@ -80,25 +80,25 @@ function formatType(type: string) {
         </div>
         <div class="col-6 col-md-3">
           <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-              <div class="text-muted mb-1" style="font-size: 12px">Low-stock threshold</div>
-              <strong class="text-dark" style="font-size: 22px">{{ product.lowStockThreshold }}</strong>
+            <div class="card-body p-3">
+              <div class="text-muted mb-1" style="font-size: 11px">Low-stock threshold</div>
+              <strong class="text-dark stat-number">{{ product.lowStockThreshold }}</strong>
             </div>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-              <div class="text-muted mb-1" style="font-size: 12px">Selling price</div>
-              <strong class="text-dark" style="font-size: 22px">${{ product.sellingPrice.toFixed(2) }}</strong>
+            <div class="card-body p-3">
+              <div class="text-muted mb-1" style="font-size: 11px">Selling price</div>
+              <strong class="text-dark stat-number">${{ product.sellingPrice.toFixed(2) }}</strong>
             </div>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-              <div class="text-muted mb-1" style="font-size: 12px">Movements</div>
-              <strong class="text-dark" style="font-size: 22px">{{ movements.length }}</strong>
+            <div class="card-body p-3">
+              <div class="text-muted mb-1" style="font-size: 11px">Movements</div>
+              <strong class="text-dark stat-number">{{ movements.length }}</strong>
             </div>
           </div>
         </div>
@@ -116,19 +116,19 @@ function formatType(type: string) {
         <p v-if="movements.length === 0" class="text-muted px-4 pb-4">No stock movements yet.</p>
 
         <div v-else class="table-responsive">
-          <table class="table table-striped table-hover mb-0">
+          <table class="table table-striped table-hover align-middle mb-0">
             <thead class="table-light">
               <tr>
                 <th class="text-uppercase text-muted small">Date</th>
                 <th class="text-uppercase text-muted small">Type</th>
                 <th class="text-uppercase text-muted small">Change</th>
                 <th class="text-uppercase text-muted small">Reason</th>
-                <th class="text-uppercase text-muted small">By</th>
+                <th class="text-uppercase text-muted small d-none d-sm-table-cell">By</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="m in movements" :key="m.id">
-                <td class="text-muted" style="font-size: 13px">{{ formatDate(m.createdAt) }}</td>
+                <td class="text-muted" style="font-size: 12px; white-space: nowrap">{{ formatDate(m.createdAt) }}</td>
                 <td>
                   <span class="badge" style="background: #eef1ff; color: #3f51b5; font-size: 11px">
                     {{ formatType(m.movementType) }}
@@ -143,8 +143,8 @@ function formatType(type: string) {
                     {{ m.quantityChange > 0 ? '+' : '' }}{{ m.quantityChange }}
                   </span>
                 </td>
-                <td style="font-size: 13px">{{ m.reason }}</td>
-                <td class="text-muted" style="font-size: 13px">{{ userName(m.userId) }}</td>
+                <td style="font-size: 12px">{{ m.reason }}</td>
+                <td class="text-muted d-none d-sm-table-cell" style="font-size: 12px">{{ userName(m.userId) }}</td>
               </tr>
             </tbody>
           </table>
@@ -153,3 +153,23 @@ function formatType(type: string) {
     </template>
   </section>
 </template>
+
+<style scoped>
+.page-title {
+  font-size: 22px;
+}
+.stat-number {
+  font-size: 19px;
+}
+@media (min-width: 768px) {
+  .page-title {
+    font-size: 26px;
+  }
+  .stat-number {
+    font-size: 24px;
+  }
+}
+th, td {
+  padding: 10px;
+}
+</style>

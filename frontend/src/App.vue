@@ -8,8 +8,15 @@ const auth = useAuthStore()
 
 <template>
   <div class="app-layout">
-    <AppNav :user-name="auth.currentUser.name" :role="auth.currentUser.role" @logout="() => {}" />
-    <header class="topbar d-flex justify-content-between align-items-center px-4 shadow-sm">
+    <AppNav
+      :user-name="auth.currentUser.name"
+      :role="auth.currentUser.role"
+      @logout="() => {}"
+      @switch-role="(role) => auth.switchRole(role)"
+    />
+
+    <!-- Desktop Topbar (Hidden on mobile < 992px) -->
+    <header class="topbar d-none d-lg-flex justify-content-between align-items-center px-4 shadow-sm">
       <div class="global-search">
         <input
           type="text"
@@ -36,6 +43,7 @@ const auth = useAuthStore()
         </select>
       </div>
     </header>
+
     <main class="main-content">
       <RouterView />
     </main>
@@ -49,6 +57,7 @@ const auth = useAuthStore()
 
 body {
   background: #f6f8fc;
+  margin: 0;
 }
 
 .app-layout {
@@ -57,14 +66,16 @@ body {
   min-height: 100vh;
 }
 
+/* Desktop Topbar */
 .topbar {
   position: fixed;
   top: 0;
   right: 0;
   left: 220px;
-  z-index: 10;
+  z-index: 1010;
   height: 64px;
   background: #fff;
+  border-bottom: 1px solid #e9edf4;
 }
 
 .global-search {
@@ -90,29 +101,20 @@ body {
   padding: 88px 30px 40px;
   background: #f6f8fc;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
+/* Mobile Layout (< 992px) */
 @media (max-width: 991px) {
-  .topbar {
-    left: 0;
-    top: 56px;
-  }
   .main-content {
     margin-left: 0;
-    padding: 130px 16px 32px;
-  }
-  .global-search {
-    width: 100%;
-    max-width: 340px;
+    padding: 74px 16px 32px;
   }
 }
 
 @media (max-width: 575px) {
-  .global-search {
-    display: none;
-  }
-  .topbar {
-    justify-content: flex-end !important;
+  .main-content {
+    padding: 70px 12px 28px;
   }
 }
 </style>

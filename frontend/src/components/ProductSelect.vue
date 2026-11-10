@@ -22,23 +22,23 @@ const filteredProducts = computed(() => products.filter((p) =>
     <div
       v-for="product in filteredProducts"
       :key="product.id"
-      class="d-flex justify-content-between align-items-center border rounded p-3"
+      class="d-flex justify-content-between align-items-center border rounded p-2 p-sm-3 bg-white"
     >
-      <div>
-        <strong class="d-block" style="font-size: 14px">{{ product.name }}</strong>
-        <small class="text-muted d-block">
-          ${{ product.sellingPrice.toFixed(2) }} each · {{ product.stockQuantity }} in stock
+      <div class="pe-2">
+        <strong class="d-block text-dark" style="font-size: 13px">{{ product.name }}</strong>
+        <small class="text-muted d-block" style="font-size: 11px">
+          ${{ product.sellingPrice.toFixed(2) }} · {{ product.stockQuantity }} in stock
         </small>
       </div>
       <button
         type="button"
-        class="btn btn-primary btn-sm flex-shrink-0"
+        class="btn btn-primary btn-sm flex-shrink-0 py-1 px-3"
         :disabled="product.stockQuantity === 0"
         @click="emit('add', product.id)"
       >＋ Add</button>
     </div>
 
-    <p v-if="filteredProducts.length === 0" class="text-muted small mb-0">
+    <p v-if="filteredProducts.length === 0" class="text-muted small mb-0 py-2">
       No available products found.
     </p>
   </div>

@@ -48,8 +48,8 @@ function onCancel() {
 
 <template>
   <section style="max-width: 1000px">
-    <h1 class="mb-1" style="color: #172b4d; font-size: 24px">Low-stock alerts</h1>
-    <p class="text-muted mb-4" style="font-size: 13px">
+    <h1 class="page-title mb-1" style="color: #172b4d">Low-stock alerts</h1>
+    <p class="text-muted mb-3 mb-md-4 small">
       Manage your store with a clear, simple workflow.
     </p>
 
@@ -57,13 +57,13 @@ function onCancel() {
     <ErrorBanner v-else-if="productsStatus === 'error'" :message="productsError" />
 
     <!-- Alert banner -->
-    <div class="alert alert-danger d-flex align-items-center gap-3 mb-3" role="alert">
+    <div class="alert alert-danger d-flex align-items-start align-items-sm-center gap-3 mb-3 p-3" role="alert">
       <span
         class="d-grid rounded-circle flex-shrink-0 text-white fw-bold"
-        style="width: 44px; height: 44px; place-items: center; background: #d9364f; font-size: 22px"
+        style="width: 40px; height: 40px; place-items: center; background: #d9364f; font-size: 20px"
       >!</span>
       <div>
-        <strong style="font-size: 16px">{{ lowStockProducts.length }} products need attention</strong>
+        <strong style="font-size: 15px">{{ lowStockProducts.length }} products need attention</strong>
         <p class="mb-0 mt-1" style="font-size: 12px">
           Stock is at or below its low-stock threshold. Adjust stock to keep sales moving.
         </p>
@@ -85,3 +85,14 @@ function onCancel() {
     <StockAdjustModal v-if="adjustingProduct" :product="adjustingProduct" @save="onSave" @cancel="onCancel" />
   </section>
 </template>
+
+<style scoped>
+.page-title {
+  font-size: 22px;
+}
+@media (min-width: 768px) {
+  .page-title {
+    font-size: 26px;
+  }
+}
+</style>

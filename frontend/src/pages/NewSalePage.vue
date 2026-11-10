@@ -103,13 +103,13 @@ async function onComplete() {
 </script>
 
 <template>
-  <section class="w-100">
-    <h1 class="mb-1" style="color: #172b4d; font-size: 24px">New Sale</h1>
-    <p class="text-muted mb-3" style="font-size: 13px">
+  <section class="w-100" style="max-width: 1100px">
+    <h1 class="page-title mb-1" style="color: #172b4d">New Sale</h1>
+    <p class="text-muted mb-3 small">
       Manage your store with a clear, simple workflow.
     </p>
 
-    <div v-if="successMessage" class="alert alert-success mb-3" role="alert">
+    <div v-if="successMessage" class="alert alert-success py-2 mb-3 small" role="alert">
       {{ successMessage }}
     </div>
 
@@ -117,11 +117,11 @@ async function onComplete() {
       <!-- Product picker -->
       <div class="col-12 col-md-5">
         <div class="card border-0 shadow-sm h-100">
-          <div class="card-body">
+          <div class="card-body p-3 p-md-4">
             <h2 class="mb-1" style="font-size: 16px; color: #172b4d">Add products to sale</h2>
             <p class="text-muted small mb-3">Search and add available products to the cart.</p>
 
-            <p v-if="productsStatus === 'loading'" class="text-muted">Loading products...</p>
+            <p v-if="productsStatus === 'loading'" class="text-muted small">Loading products...</p>
             <div v-else-if="productsStatus === 'error'">
               <ErrorBanner :message="productsError" />
               <button class="btn btn-sm btn-outline-secondary mt-2" type="button" @click="productsStore.fetchAll()">
@@ -137,14 +137,14 @@ async function onComplete() {
         </div>
       </div>
 
-      <!-- Cart -->
+      <!-- Current Sale / Cart -->
       <div class="col-12 col-md-7">
         <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <h2 class="mb-3" style="font-size: 16px; color: #172b4d">Current sale</h2>
+          <div class="card-body p-2 p-sm-3 p-md-4">
+            <h2 class="mb-2 mb-sm-3 px-1" style="font-size: 16px; color: #172b4d">Current sale</h2>
             <CartTable :lines="cartLines" @update-quantity="onUpdateQuantity" @remove="onRemove" />
             <SaleSummary :total="total" :can-complete="cart.length > 0 && !saving" @complete="onComplete" />
-            <p class="text-muted small text-center mt-2">
+            <p class="text-muted small text-center mt-2 mb-0" style="font-size: 11px">
               {{ saving ? 'Saving stock changes...' : 'Stock updates after successful checkout.' }}
             </p>
           </div>
@@ -155,3 +155,14 @@ async function onComplete() {
     <ErrorBanner :message="errorMessage" />
   </section>
 </template>
+
+<style scoped>
+.page-title {
+  font-size: 22px;
+}
+@media (min-width: 768px) {
+  .page-title {
+    font-size: 26px;
+  }
+}
+</style>
