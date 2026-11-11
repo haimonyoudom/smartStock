@@ -21,7 +21,7 @@
       "name": "Coca-Cola 330ml",
       "sku": "CC-330",
       "sellingPrice": 0.8,
-      "stockQuantity": 27,
+      "stockQuantity": 26,
       "lowStockThreshold": 10,
       "active": true
     },
@@ -30,7 +30,7 @@
       "name": "Milk 1L",
       "sku": "MK-1L",
       "sellingPrice": 1.5,
-      "stockQuantity": 7,
+      "stockQuantity": 3,
       "lowStockThreshold": 5,
       "active": true
     },
@@ -39,7 +39,7 @@
       "name": "Instant noodles",
       "sku": "NO-01",
       "sellingPrice": 0.4,
-      "stockQuantity": 120,
+      "stockQuantity": 115,
       "lowStockThreshold": 20,
       "active": true
     },
@@ -74,7 +74,7 @@
       "name": "Sting",
       "sku": "s21",
       "sellingPrice": 2,
-      "stockQuantity": 13,
+      "stockQuantity": 5,
       "lowStockThreshold": 5,
       "active": true,
       "id": "7aRhQ9t"
@@ -121,6 +121,96 @@
       "id": "1046",
       "saleDate": "2026-11-10T01:32:59.635Z",
       "totalAmount": 6.4,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1047",
+      "saleDate": "2026-11-11T13:58:40.784Z",
+      "totalAmount": 0.8,
+      "createdBy": "u2"
+    },
+    {
+      "id": "1048",
+      "saleDate": "2026-11-11T13:58:49.395Z",
+      "totalAmount": 6.9,
+      "createdBy": "u2"
+    },
+    {
+      "id": "1049",
+      "saleDate": "2026-11-11T13:58:53.082Z",
+      "totalAmount": 6.9,
+      "createdBy": "u2"
+    },
+    {
+      "id": "1050",
+      "saleDate": "2026-11-11T13:58:56.471Z",
+      "totalAmount": 3.9,
+      "createdBy": "u2"
+    },
+    {
+      "id": "1051",
+      "saleDate": "2026-11-11T13:59:31.167Z",
+      "totalAmount": 2.3,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1052",
+      "saleDate": "2026-11-11T13:59:57.419Z",
+      "totalAmount": 2.3,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1053",
+      "saleDate": "2026-11-11T14:00:05.195Z",
+      "totalAmount": 10,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1054",
+      "saleDate": "2026-11-11T14:00:06.395Z",
+      "totalAmount": 10,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1055",
+      "saleDate": "2026-11-11T14:00:11.494Z",
+      "totalAmount": 6,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1056",
+      "saleDate": "2026-11-11T14:00:15.894Z",
+      "totalAmount": 2.3,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1057",
+      "saleDate": "2026-11-11T14:01:58.781Z",
+      "totalAmount": 2.3,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1058",
+      "saleDate": "2026-11-11T14:03:53.802Z",
+      "totalAmount": 0.4,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1059",
+      "saleDate": "2026-11-11T14:03:58.724Z",
+      "totalAmount": 1.2,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1060",
+      "saleDate": "2026-11-11T14:04:03.515Z",
+      "totalAmount": 0.4,
+      "createdBy": "u1"
+    },
+    {
+      "id": "1061",
+      "saleDate": "2026-11-11T14:04:35.467Z",
+      "totalAmount": 16,
       "createdBy": "u1"
     }
   ],
@@ -196,6 +286,190 @@
       "quantity": 8,
       "unitPrice": 0.8,
       "subtotal": 6.4
+    },
+    {
+      "id": "1047-1",
+      "saleId": "1047",
+      "productId": "p1",
+      "quantity": 1,
+      "unitPrice": 0.8,
+      "subtotal": 0.8
+    },
+    {
+      "id": "1048-1",
+      "saleId": "1048",
+      "productId": "p2",
+      "quantity": 3,
+      "unitPrice": 1.5,
+      "subtotal": 4.5
+    },
+    {
+      "id": "1048-2",
+      "saleId": "1048",
+      "productId": "p1",
+      "quantity": 3,
+      "unitPrice": 0.8,
+      "subtotal": 2.4
+    },
+    {
+      "id": "1049-1",
+      "saleId": "1049",
+      "productId": "p2",
+      "quantity": 3,
+      "unitPrice": 1.5,
+      "subtotal": 4.5
+    },
+    {
+      "id": "1049-2",
+      "saleId": "1049",
+      "productId": "p1",
+      "quantity": 3,
+      "unitPrice": 0.8,
+      "subtotal": 2.4
+    },
+    {
+      "id": "1050-1",
+      "saleId": "1050",
+      "productId": "p2",
+      "quantity": 1,
+      "unitPrice": 1.5,
+      "subtotal": 1.5
+    },
+    {
+      "id": "1050-2",
+      "saleId": "1050",
+      "productId": "p1",
+      "quantity": 3,
+      "unitPrice": 0.8,
+      "subtotal": 2.4
+    },
+    {
+      "id": "1051-1",
+      "saleId": "1051",
+      "productId": "p1",
+      "quantity": 1,
+      "unitPrice": 0.8,
+      "subtotal": 0.8
+    },
+    {
+      "id": "1051-2",
+      "saleId": "1051",
+      "productId": "p2",
+      "quantity": 1,
+      "unitPrice": 1.5,
+      "subtotal": 1.5
+    },
+    {
+      "id": "1052-1",
+      "saleId": "1052",
+      "productId": "p1",
+      "quantity": 1,
+      "unitPrice": 0.8,
+      "subtotal": 0.8
+    },
+    {
+      "id": "1052-2",
+      "saleId": "1052",
+      "productId": "p2",
+      "quantity": 1,
+      "unitPrice": 1.5,
+      "subtotal": 1.5
+    },
+    {
+      "id": "1053-1",
+      "saleId": "1053",
+      "productId": "p1",
+      "quantity": 5,
+      "unitPrice": 0.8,
+      "subtotal": 4
+    },
+    {
+      "id": "1053-2",
+      "saleId": "1053",
+      "productId": "p2",
+      "quantity": 4,
+      "unitPrice": 1.5,
+      "subtotal": 6
+    },
+    {
+      "id": "1054-1",
+      "saleId": "1054",
+      "productId": "p1",
+      "quantity": 5,
+      "unitPrice": 0.8,
+      "subtotal": 4
+    },
+    {
+      "id": "1054-2",
+      "saleId": "1054",
+      "productId": "p2",
+      "quantity": 4,
+      "unitPrice": 1.5,
+      "subtotal": 6
+    },
+    {
+      "id": "1055-1",
+      "saleId": "1055",
+      "productId": "p2",
+      "quantity": 4,
+      "unitPrice": 1.5,
+      "subtotal": 6
+    },
+    {
+      "id": "1056-1",
+      "saleId": "1056",
+      "productId": "p2",
+      "quantity": 1,
+      "unitPrice": 1.5,
+      "subtotal": 1.5
+    },
+    {
+      "id": "1056-2",
+      "saleId": "1056",
+      "productId": "p3",
+      "quantity": 2,
+      "unitPrice": 0.4,
+      "subtotal": 0.8
+    },
+    {
+      "id": "1057-1",
+      "saleId": "1057",
+      "productId": "p2",
+      "quantity": 1,
+      "unitPrice": 1.5,
+      "subtotal": 1.5
+    },
+    {
+      "id": "1058-1",
+      "saleId": "1058",
+      "productId": "p3",
+      "quantity": 1,
+      "unitPrice": 0.4,
+      "subtotal": 0.4
+    },
+    {
+      "id": "1059-1",
+      "saleId": "1059",
+      "productId": "p3",
+      "quantity": 3,
+      "unitPrice": 0.4,
+      "subtotal": 1.2
+    },
+    {
+      "id": "1060-1",
+      "saleId": "1060",
+      "productId": "p3",
+      "quantity": 1,
+      "unitPrice": 0.4,
+      "subtotal": 0.4
+    },
+    {
+      "id": "1061-1",
+      "saleId": "1061",
+      "productId": "7aRhQ9t",
+      "quantity": 8,
+      "unitPrice": 2,
+      "subtotal": 16
     }
   ],
   "stockMovements": [
@@ -234,6 +508,78 @@
       "quantityChange": -8,
       "reason": "Sale #1046",
       "createdAt": "2026-11-10T01:32:59.635Z"
+    },
+    {
+      "id": "m-1047-1",
+      "productId": "p1",
+      "userId": "u2",
+      "movementType": "SALE",
+      "quantityChange": -1,
+      "reason": "Sale #1047",
+      "createdAt": "2026-11-11T13:58:40.784Z"
+    },
+    {
+      "id": "m-1050-1",
+      "productId": "p2",
+      "userId": "u2",
+      "movementType": "SALE",
+      "quantityChange": -1,
+      "reason": "Sale #1050",
+      "createdAt": "2026-11-11T13:58:56.471Z"
+    },
+    {
+      "id": "m-1050-2",
+      "productId": "p1",
+      "userId": "u2",
+      "movementType": "SALE",
+      "quantityChange": -3,
+      "reason": "Sale #1050",
+      "createdAt": "2026-11-11T13:58:56.471Z"
+    },
+    {
+      "id": "m-1055-1",
+      "productId": "p2",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -4,
+      "reason": "Sale #1055",
+      "createdAt": "2026-11-11T14:00:11.494Z"
+    },
+    {
+      "id": "m-1058-1",
+      "productId": "p3",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -1,
+      "reason": "Sale #1058",
+      "createdAt": "2026-11-11T14:03:53.802Z"
+    },
+    {
+      "id": "m-1059-1",
+      "productId": "p3",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -3,
+      "reason": "Sale #1059",
+      "createdAt": "2026-11-11T14:03:58.724Z"
+    },
+    {
+      "id": "m-1060-1",
+      "productId": "p3",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -1,
+      "reason": "Sale #1060",
+      "createdAt": "2026-11-11T14:04:03.515Z"
+    },
+    {
+      "id": "m-1061-1",
+      "productId": "7aRhQ9t",
+      "userId": "u1",
+      "movementType": "SALE",
+      "quantityChange": -8,
+      "reason": "Sale #1061",
+      "createdAt": "2026-11-11T14:04:35.467Z"
     }
   ]
 }

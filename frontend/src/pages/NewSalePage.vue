@@ -108,7 +108,7 @@ async function onComplete() {
     <p class="text-muted mb-3 small">
       Manage your store with a clear, simple workflow.
     </p>
-
+    <ErrorBanner :message="errorMessage" />
     <div v-if="successMessage" class="alert alert-success py-2 mb-3 small" role="alert">
       {{ successMessage }}
     </div>
@@ -152,7 +152,6 @@ async function onComplete() {
       </div>
     </div>
 
-    <ErrorBanner :message="errorMessage" />
   </section>
 </template>
 

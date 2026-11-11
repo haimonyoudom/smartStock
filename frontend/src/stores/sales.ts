@@ -92,8 +92,12 @@ export const useSalesStore = defineStore('sales', () => {
         totalAmount: sale.totalAmount,
         createdBy: sale.createdBy,
       })
-      await Promise.all(items.map((item) => saleItemsApi.create(item)))
-      await Promise.all(movements.map((movement) => stockMovementsApi.create(movement)))
+      for (const item of items) {
+        await saleItemsApi.create(item)
+      }
+      for (const movement of movements) {
+        await stockMovementsApi.create(movement)
+      }
     } catch (e) {
       return {
         ok: false,
@@ -111,9 +115,9 @@ export const useSalesStore = defineStore('sales', () => {
     })
 
     try {
-      await Promise.all(updatedProducts.map(({ product, stockQuantity }) =>
-        productsApi.update(product.id, { stockQuantity }),
-      ))
+      for (const { product, stockQuantity } of updatedProducts) {
+        await productsApi.update(product.id, { stockQuantity })
+      }
     } catch (e) {
       console.error('Failed to sync stock updates to server:', e)
     }
