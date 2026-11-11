@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Role } from '@/types'
 
-const props = defineProps<{ userName: string; role: Role }>()
+defineProps<{ userName: string; role: Role }>()
 const emit = defineEmits<{ logout: []; 'switch-role': [role: Role] }>()
 
 const route = useRoute()
