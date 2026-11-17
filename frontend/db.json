@@ -30,7 +30,7 @@
       "name": "Milk 1L",
       "sku": "MK-1L",
       "sellingPrice": 1.5,
-      "stockQuantity": 3,
+      "stockQuantity": 8,
       "lowStockThreshold": 5,
       "active": true
     },
