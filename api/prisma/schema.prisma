@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  OWNER
+  CASHIER
+}
+
+model Business {
+  id           String          @id @default(cuid())
+  name         String
+  businessType String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  users        User[]
+  products     Product[]
+  sales        Sale[]
+  movements    StockMovement[]
+  sessions     Session[]
+}
+
+model User {
+  id           String          @id @default(cuid())
+  businessId   String
+  name         String
+  email        String
+  passwordHash String
+  role         UserRole        @default(CASHIER)
+  active       Boolean         @default(true)
+  createdAt    DateTime        @default(now())
+  business     Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  sessions     Session[]
+  sales        Sale[]
+  movements    StockMovement[]
+
+  @@unique([email])
+  @@index([businessId])
+}
+
+model Session {
+  id         String   @id
+  userId     String
+  businessId String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([businessId])
+}
+
+model Product {
+  id                String          @id @default(cuid())
+  businessId        String
+  name              String
+  sku               String
+  sellingPrice      Float
+  stockQuantity     Int             @default(0)
+  lowStockThreshold Int             @default(0)
+  active            Boolean         @default(true)
+  createdAt         DateTime        @default(now())
+  business          Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  saleItems         SaleItem[]
+  movements         StockMovement[]
+
+  @@unique([businessId, sku])
+  @@unique([id, businessId])
+  @@index([businessId])
+}
+
+model Sale {
+  id            String     @id @default(cuid())
+  businessId    String
+  saleNumber    String
+  createdById   String
+  saleDate      DateTime   @default(now())
+  totalAmount   Float
+  paymentMethod String?
+  status        String     @default("COMPLETED")
+  business      Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  createdBy     User       @relation(fields: [createdById], references: [id])
+  items         SaleItem[]
+
+  @@unique([id, businessId])
+  @@unique([businessId, saleNumber])
+  @@index([businessId])
+}
+
+model SaleItem {
+  id         String  @id @default(cuid())
+  businessId String
+  saleId     String
+  productId  String
+  quantity   Int
+  unitPrice  Float
+  subtotal   Float
+  sale       Sale    @relation(fields: [saleId, businessId], references: [id, businessId], onDelete: Cascade)
+  product    Product @relation(fields: [productId, businessId], references: [id, businessId])
+
+  @@index([saleId])
+  @@index([businessId])
+}
+
+model StockMovement {
+  id             String   @id @default(cuid())
+  businessId     String
+  productId      String
+  userId         String
+  movementType   String
+  quantityChange Int
+  reason         String?
+  createdAt      DateTime @default(now())
+  business       Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  product        Product  @relation(fields: [productId], references: [id])
+  user           User     @relation(fields: [userId], references: [id])
+
+  @@index([businessId])
+  @@index([productId])
+}

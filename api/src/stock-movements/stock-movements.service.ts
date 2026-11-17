@@ -1,31 +1,24 @@
-import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
-import { ProductsService } from '../products/products.service.js';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../database/prisma.service.js';
 import { AdjustStockDto } from './dto/adjust-stock.dto.js';
-import { StockMovement } from './stock-movement.entity.js';
 
 @Injectable()
 export class StockMovementsService {
-  constructor(private readonly productsService: ProductsService) {}
-
-  findAll(productId?: string): StockMovement[] {
-    const movements = this.productsService.getMovements();
-    return productId === undefined
-      ? movements
-      : movements.filter((movement) => movement.productId === productId);
+  constructor(private readonly prisma: PrismaService) {}
+  findAll(businessId: string, productId?: string) {
+    return this.prisma.stockMovement.findMany({ where: { businessId, ...(productId ? { productId } : {}) }, orderBy: { createdAt: 'desc' } });
   }
-
-  adjust(productId: string, dto: AdjustStockDto): ReturnType<ProductsService['adjustStock']> {
-    return this.productsService.adjustStock(productId, dto);
+  async adjust(productId: string, dto: AdjustStockDto, businessId: string, userId: string) {
+    const product = await this.prisma.product.findFirst({ where: { id: productId, businessId } });
+    if (!product) throw new NotFoundException(`Product ${productId} not found`);
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.product.update({ where: { id: productId }, data: { stockQuantity: { increment: dto.quantityChange } } });
+      if (updated.stockQuantity < 0) throw new NotFoundException('Stock cannot be negative');
+      await tx.stockMovement.create({ data: { businessId, productId, userId, movementType: 'ADJUSTMENT', quantityChange: dto.quantityChange, reason: dto.reason } });
+      return updated;
+    });
   }
-
-  ensureProductExists(productId: string): void {
-    try {
-      this.productsService.findOne(productId);
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      throw new UnprocessableEntityException('Unable to verify product');
-    }
+  async ensureProductExists(productId: string, businessId: string) {
+    if (!await this.prisma.product.findFirst({ where: { id: productId, businessId }, select: { id: true } })) throw new NotFoundException(`Product ${productId} not found`);
   }
 }
